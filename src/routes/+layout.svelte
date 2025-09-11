@@ -4,9 +4,12 @@
 
 	import { setTheme } from '@fluentui/web-components';
 	import { webLightTheme } from '@fluentui/tokens';
+	import { setAuthService } from '$lib/auth/authService.svelte';
   
 	let { children } = $props();
 	setTheme(webLightTheme);
+
+  setAuthService();
 </script>
 
 <svelte:head>

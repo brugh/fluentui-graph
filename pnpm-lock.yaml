@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@azure/msal-browser':
+        specifier: ^4.22.1
+        version: 4.22.1
       '@fluentui/tokens':
         specifier: 1.0.0-alpha.22
         version: 1.0.0-alpha.22
@@ -17,6 +20,12 @@ importers:
       '@microsoft/fast-element':
         specifier: ^2.7.0
         version: 2.7.0
+      '@microsoft/microsoft-graph-client':
+        specifier: ^3.0.7
+        version: 3.0.7(@azure/msal-browser@4.22.1)
+      '@microsoft/microsoft-graph-types':
+        specifier: ^2.40.0
+        version: 2.40.0
     devDependencies:
       '@inlang/paraglide-js':
         specifier: ^2.0.0
@@ -33,6 +42,9 @@ importers:
       '@types/node':
         specifier: ^24.3.1
         version: 24.3.1
+      fluentui-icons-svelte:
+        specifier: ^1.0.3
+        version: 1.0.3(svelte@5.38.8)
       prettier:
         specifier: ^3.4.2
         version: 3.6.2
@@ -53,6 +65,18 @@ importers:
         version: 7.1.5(@types/node@24.3.1)
 
 packages:
+
+  '@azure/msal-browser@4.22.1':
+    resolution: {integrity: sha512-/I76rBJpt5ZVfFXk+GkKxD4w1DZEbVpNn0aQjvRgnDnTYo3L/f8Oeo3R1O9eL/ccg5j1537iRLr7UwVhwnHtyg==}
+    engines: {node: '>=0.8.0'}
+
+  '@azure/msal-common@15.12.0':
+    resolution: {integrity: sha512-4ucXbjVw8KJ5QBgnGJUeA07c8iznwlk5ioHIhI4ASXcXgcf2yRFhWzYOyWg/cI49LC9ekpFJeQtO3zjDTbl6TQ==}
+    engines: {node: '>=0.8.0'}
+
+  '@babel/runtime@7.28.4':
+    resolution: {integrity: sha512-Q/N6JNWvIvPnLDvjlE1OUBLPQHH6l3CltCEsHIujp45zQUSSh8K+gHnaEX45yAT1nyngnINhvWtzN+Nb9D8RAQ==}
+    engines: {node: '>=6.9.0'}
 
   '@esbuild/aix-ppc64@0.25.9':
     resolution: {integrity: sha512-OaGtL73Jck6pBKjNIe24BnFE6agGl+6KxDtTfHhy1HmhthfKouEcOhqpSL64K4/0WCtbKFLOdzD/44cJ4k9opA==}
@@ -257,6 +281,27 @@ packages:
 
   '@microsoft/fast-web-utilities@6.0.0':
     resolution: {integrity: sha512-ckCA4Xn91ja1Qz+jhGGL1Q3ZeuRpA5VvYcRA7GzA1NP545sl14bwz3tbHCq8jIk+PL7mkSaIveGMYuJB2L4Izg==}
+
+  '@microsoft/microsoft-graph-client@3.0.7':
+    resolution: {integrity: sha512-/AazAV/F+HK4LIywF9C+NYHcJo038zEnWkteilcxC1FM/uK/4NVGDKGrxx7nNq1ybspAroRKT4I1FHfxQzxkUw==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@azure/identity': '*'
+      '@azure/msal-browser': '*'
+      buffer: '*'
+      stream-browserify: '*'
+    peerDependenciesMeta:
+      '@azure/identity':
+        optional: true
+      '@azure/msal-browser':
+        optional: true
+      buffer:
+        optional: true
+      stream-browserify:
+        optional: true
+
+  '@microsoft/microsoft-graph-types@2.40.0':
+    resolution: {integrity: sha512-1fcPVrB/NkbNcGNfCy+Cgnvwxt6/sbIEEFgZHFBJ670zYLegENYJF8qMo7x3LqBjWX2/Eneq5BVVRCLTmlJN+g==}
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -521,6 +566,11 @@ packages:
       picomatch:
         optional: true
 
+  fluentui-icons-svelte@1.0.3:
+    resolution: {integrity: sha512-HPvdXS2Jt065XndVSm4sc1OA8EeuZ53q8wRVTBCYv1wmZtA/FwT5Pgg/t7RQKcmzixCsamoDFlsxbLVAG98WJg==}
+    peerDependencies:
+      svelte: ^5.0.0
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -731,6 +781,14 @@ packages:
 
 snapshots:
 
+  '@azure/msal-browser@4.22.1':
+    dependencies:
+      '@azure/msal-common': 15.12.0
+
+  '@azure/msal-common@15.12.0': {}
+
+  '@babel/runtime@7.28.4': {}
+
   '@esbuild/aix-ppc64@0.25.9':
     optional: true
 
@@ -885,6 +943,15 @@ snapshots:
   '@microsoft/fast-web-utilities@6.0.0':
     dependencies:
       exenv-es6: 1.1.1
+
+  '@microsoft/microsoft-graph-client@3.0.7(@azure/msal-browser@4.22.1)':
+    dependencies:
+      '@babel/runtime': 7.28.4
+      tslib: 2.8.1
+    optionalDependencies:
+      '@azure/msal-browser': 4.22.1
+
+  '@microsoft/microsoft-graph-types@2.40.0': {}
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -1099,6 +1166,10 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.3):
     optionalDependencies:
       picomatch: 4.0.3
+
+  fluentui-icons-svelte@1.0.3(svelte@5.38.8):
+    dependencies:
+      svelte: 5.38.8
 
   fsevents@2.3.3:
     optional: true

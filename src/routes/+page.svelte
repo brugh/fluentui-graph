@@ -1,95 +1,55 @@
 <script lang="ts">
-	let dialog: any;
+	import LoginButton from '$lib/components/LoginButton.svelte';
+	import FileBrowser from '$lib/components/FileBrowser.svelte';
 </script>
 
-<div class="flex">
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<!-- svelte-ignore a11y_click_events_have_key_events -->
-	<fluent-button onclick={() => dialog?.show()}>Open Dialog</fluent-button>
-	<fluent-dialog bind:this={dialog}>
-    <fluent-dialog-body>
-      <!-- svelte-ignore a11y_no_static_element_interactions -->
-			<!-- svelte-ignore a11y_click_events_have_key_events -->
-			<fluent-button slot="action" appearance="primary" onclick={() => dialog?.hide()}>
-				Close Dialog
-			</fluent-button>
+<div class="container">
+	<header class="header">
+		<fluent-text size="800">Microsoft Graph File Explorer</fluent-text>
+		<LoginButton />
+	</header>
 
-			<p>
-				The dialog component is a window overlaid on either the primary window or another dialog
-				window. Windows under a modal dialog are inert.
-			</p>
-			<p>That is, users cannot interact with content outside an active dialog window.</p>
+	<main class="main">
+		<FileBrowser />
+	</main>
 
-			<div slot="title">Default Dialog</div>
-		</fluent-dialog-body>
-	</fluent-dialog>
-
-	<fluent-accordion expand-mode="single">
-		<fluent-accordion-item>
-			<span slot="heading">Accordion Header 1</span>
-			Accordion Panel 1
-		</fluent-accordion-item>
-
-		<fluent-accordion-item>
-			<span slot="heading">Accordion Header 2</span>
-			Accordion Panel 2
-		</fluent-accordion-item>
-
-		<fluent-accordion-item>
-			<span slot="heading">Accordion Header 3</span>
-			Accordion Panel 3
-		</fluent-accordion-item>
-	</fluent-accordion>
-
-	<fluent-field label-position="after">
-		<fluent-checkbox slot="input"></fluent-checkbox>
-
-		<label slot="label" for="checkbox">Label goes here</label>
-	</fluent-field>
-
-	<fluent-field>
-		<label slot="label" for="radio-group">Favorite Fruit</label>
-		<fluent-radio-group
-			slot="input"
-			id="radio-group"
-			aria-labelledby="radio-group--label"
-			orientation="vertical"
-			name="favorite-fruit"
-		>
-			<fluent-field label-position="after">
-				<label slot="label" for="radio-group--apple">Apple</label>
-				<fluent-radio slot="input" id="radio-group--apple" name="favorite-fruit" value="apple"
-				></fluent-radio>
-			</fluent-field>
-
-			<fluent-field label-position="after">
-				<label slot="label" for="radio-group--banana">Banana</label>
-				<fluent-radio slot="input" id="radio-group--banana" name="favorite-fruit" value="banana"
-				></fluent-radio>
-			</fluent-field>
-		</fluent-radio-group>
-	</fluent-field>
-
-	<div class="buttons">
+	<footer class="footer">
 		<fluent-button>Default</fluent-button>
 		<fluent-button appearance="primary">Primary</fluent-button>
 		<fluent-button appearance="outline">Outline</fluent-button>
 		<fluent-button appearance="subtle">Subtle</fluent-button>
 		<fluent-button appearance="transparent">Transparent</fluent-button>
-	</div>
+	</footer>
 </div>
 
 <style>
-	.buttons {
-		max-width: 200px;
+	.container {
+		min-height: 100vh;
+    max-width: 960px;
+    margin-inline: auto;
 		display: flex;
-		gap: 1rem;
 		flex-direction: column;
+		height: 100vh; /* Set explicit height to fill viewport */
+		overflow: hidden; /* Prevent scrolling on the container */
 	}
 
-	.flex {
+	.header {
 		display: flex;
-		gap: 1rem;
-		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 2rem;
+		flex-shrink: 0; /* Prevent header from shrinking */
 	}
+
+	.main {
+		flex: 1; /* Fill remaining space */
+		overflow: auto; /* Add scrolling to main content if needed */
+		padding: 1rem;
+	}
+
+	.footer {
+		padding: 1rem;
+		flex-shrink: 0; /* Prevent footer from shrinking */
+	}
+
 </style>
