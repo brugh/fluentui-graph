@@ -5,11 +5,13 @@
 	import { setTheme } from '@fluentui/web-components';
 	import { webLightTheme } from '@fluentui/tokens';
 	import { setAuthService } from '$lib/auth/authService.svelte';
+	import { setState } from '$lib/state.svelte';
   
 	let { children } = $props();
 	setTheme(webLightTheme);
 
   setAuthService();
+  setState();
 </script>
 
 <svelte:head>

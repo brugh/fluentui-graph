@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { getAuthService } from '../auth/authService.svelte';
-  import SignOutRegular from 'fluentui-icons-svelte/SignOutRegular.svelte';
+	import SignOutRegular from 'fluentui-icons-svelte/SignOutRegular.svelte';
+	import ChevronDownRegular from 'fluentui-icons-svelte/ChevronDownRegular.svelte';
+	import Text from './Text.svelte';
 
-  const auth = getAuthService();
+	const auth = getAuthService();
 
 	let { class: className = '' } = $props();
 
@@ -35,34 +37,62 @@
 
 <div class="auth-container {className}">
 	{#if auth.isAuthenticated && user}
-		<fluent-button
-			appearance="subtle"
-			onclick={handleLogout}
-			disabled={isLoading ? 'true' : undefined}
-			role="button"
-			tabindex={0}
-			onkeydown={(e: KeyboardEvent) => e.key === 'Enter' && handleLogout()}
-		>
-			<span slot="start">
-				<fluent-avatar name={user?.name || user?.username} alt="User avatar">
-          {#if userThumbnail}
-            <img src={userThumbnail} alt="User avatar" />
-          {/if}
-        </fluent-avatar>
-			</span>
-			<span class="welcome">{isLoading ? 'Signing out...' : (user?.name || user?.username)}</span>
-			<span slot="end" style='margin-top: 8px;'><SignOutRegular /></span>
-		</fluent-button>
+		<div style="position: relative; display: inline-block;">
+			<fluent-menu>
+				<fluent-menu-button slot="trigger" appearance="subtle" disabled={isLoading ? 'true' : undefined}>
+					<span slot="start">
+						<fluent-avatar name={user?.name || user?.username} alt="User avatar">
+							{#if userThumbnail}
+								<img src={userThumbnail} alt="User avatar" />
+							{/if}
+						</fluent-avatar>
+					</span>
+					<span class="welcome">
+						<Text
+							key={isLoading ? 'Loading' : 'authLoggedin'}
+							params={{ name: user?.name || user?.username }}
+						/>
+					</span>
+					<span slot="end">
+						<ChevronDownRegular />
+					</span>
+				</fluent-menu-button>
+
+				<fluent-menu-list>
+					<fluent-menu-item disabled style="min-height: 3rem">
+            <div class="user-name">{user?.name || user?.username}</div>
+            <div class="user-email">{user?.username}</div>
+          </fluent-menu-item>
+					<fluent-divider></fluent-divider>
+					<fluent-menu-item
+						role="menuitem"
+						tabindex="0"
+						onclick={handleLogout}
+						onkeydown={(e: KeyboardEvent) => e.key === 'Enter' && handleLogout()}
+						disabled={isLoading}
+					>
+						<span slot="start">
+							<SignOutRegular />
+						</span>
+						<Text key="authSignout" />
+					</fluent-menu-item>
+				</fluent-menu-list>
+			</fluent-menu>
+		</div>
 	{:else}
 		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<fluent-button
+			id="login-button"
 			appearance="accent"
 			onclick={handleLogin}
 			disabled={isLoading ? 'true' : undefined}
 		>
-			{isLoading ? 'Signing in...' : 'Sign in with Microsoft'}
+			<Text key={isLoading ? 'Loading' : 'authSignin'}></Text>
 		</fluent-button>
+		<fluent-tooltip anchor="login-button" positioning="below-end">
+			<Text key="authSignin" />
+		</fluent-tooltip>
 	{/if}
 </div>
 
@@ -73,36 +103,44 @@
 		gap: 1rem;
 	}
 
-	.user-info {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-	}
-
 	.welcome {
 		font-weight: 500;
 		color: var(--neutral-foreground-rest);
 	}
 
-	.user-avatar {
-		width: 32px;
-		height: 32px;
-		border-radius: 50%;
-		object-fit: cover;
-		margin-right: 8px;
-	}
-
-	.user-avatar-placeholder {
-		width: 32px;
-		height: 32px;
-		border-radius: 50%;
-		background: var(--colorBrandBackground);
-		color: var(--colorNeutralForegroundOnBrand);
+	.user-menu-container {
+		position: relative;
 		display: flex;
 		align-items: center;
-		justify-content: center;
+	}
+
+	.chevron {
+		transition: transform 0.2s ease;
+		display: flex;
+		align-items: center;
+	}
+
+	.chevron.rotated {
+		transform: rotate(180deg);
+	}
+
+	.user-details {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		padding: 8px 0;
+		min-width: 200px;
+		line-height: 1.2;
+	}
+
+	.user-name {
 		font-weight: 600;
+		color: var(--neutral-foreground-1, #242424);
 		font-size: 14px;
-		margin-right: 8px;
+	}
+
+	.user-email {
+		font-size: 12px;
+		color: var(--neutral-foreground-2, #616161);
 	}
 </style>

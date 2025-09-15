@@ -1,4 +1,10 @@
 {
-	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hallo, {name} vanuit NL!"
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "hello_world": "Hallo, {name} vanuit NL!",
+  "mainLanguage": "Taal",
+  "authSignin": "Meld u aan",
+  "authSignout": "Meld u af",
+  "Loading": "Laden...",
+  "authLoggedin": "{name}",
+  "appTitle": "Welkom bij Q2D!"
 }
